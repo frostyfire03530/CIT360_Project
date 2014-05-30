@@ -19,49 +19,43 @@ import android.os.Bundle;
 import android.app.Activity;
 import android.content.Context;
 import android.view.Menu;
+import android.view.View;
 import android.view.MenuItem;
 import android.support.v4.app.NavUtils;
 import android.widget.EditText;
+import android.widget.Button;
 
 import java.net.Socket;
 import java.util.Scanner;
-
+//import java.awt.*;
 
 public class MainActivity extends ActionBarActivity {
+
+    Button   mButton;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
+        mButton = (Button)findViewById(R.id.sendDataButton);
 
+        mButton.setOnClickListener(
+                new View.OnClickListener()
+                {
+                    public void onClick(View view)
+                    {
+                        EditText dataBox = (EditText)findViewById(R.id.data);
+                        String data = dataBox.getText().toString();
+                        EditText hostBox = (EditText)findViewById(R.id.host);
+                        String host   = hostBox.getText().toString();
+                        Client clientRunnable = new Client(host, data);
+                        Thread clientThread = new Thread(clientRunnable);
+                        clientThread.start();
+                    }
+                });
 
     }
-    String password ="josh";
-
-    public void connectToServer(String password){
-        String host = "10.18.151.154";
-        // Scanner input = new Scanner(System.in);
-
-        try{
-            Socket toServer = new Socket(host, 9292);
-            JSONInputStream inFromServer =
-                    new JSONInputStream(toServer.getInputStream());
-            JSONOutputStream outToServer =
-                    new JSONOutputStream(toServer.getOutputStream());
-
-
-
-            outToServer.writeObject(password);
-
-            // System.out.println(inFromServer.readObject());
-        }
-        catch(Exception e){
-            System.out.println("Fail");
-            // e.printStackTrace();
-        }
-    }
-
 
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {

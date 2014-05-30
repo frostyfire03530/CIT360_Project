@@ -9,7 +9,7 @@
     tools:context="test.app.MainActivity">
 
     <TextView
-        android:text="snazy Pants APP"
+        android:text="Test Client App"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:id="@+id/textView"
@@ -19,20 +19,54 @@
     <Button
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="SendPassword"
-        android:id="@+id/button"
-        android:layout_centerVertical="true" />
+        android:text="Send"
+        android:id="@+id/sendDataButton"
+        android:layout_centerVertical="true"
+        android:clickable="true" />
 
 
     <EditText
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:id="@+id/editText"
+        android:id="@+id/host"
         android:layout_marginTop="41dp"
         android:layout_below="@+id/textView"
-        android:layout_alignLeft="@+id/button"
-        android:layout_alignStart="@+id/button"
+        android:layout_alignLeft="@+id/sendDataButton"
+        android:layout_alignStart="@+id/sendDataButton"
         android:width="300dp"
-        android:text1="" />
+        android:inputType="text" />
+
+    <EditText
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/data"
+        android:width="300dp"
+        android:layout_below="@+id/host"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentStart="true"
+        android:layout_marginTop="38dp"
+        android:inputType="text" />
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textAppearance="?android:attr/textAppearanceSmall"
+        android:text="Host:"
+        android:id="@+id/textView2"
+        android:layout_marginTop="23dp"
+        android:layout_below="@+id/textView"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentStart="true" />
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textAppearance="?android:attr/textAppearanceSmall"
+        android:text="Data:"
+        android:id="@+id/textView3"
+        android:layout_below="@+id/host"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentStart="true"
+        android:layout_marginTop="20dp" />
 
 </RelativeLayout>
