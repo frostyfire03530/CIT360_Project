@@ -5,7 +5,7 @@ import android.widget.TextView;
 /**
  * Created by JMZ on 6/24/2014.
  */
-public class ConnectHandler {
+public class ConnectHandler implements Handler {
 
 
     @Override

@@ -1,12 +1,18 @@
 package test.app;
 
+import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
 import android.support.v7.app.ActionBarActivity;
 import android.os.Bundle;
+import android.text.Editable;
 import android.view.Menu;
 import android.view.MenuItem;
 import java.io.FileInputStream;
 import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
+import java.io.IOException;
+import java.net.HttpURLConnection;
+import java.net.URL;
 import java.util.Date;
 import java.util.HashMap;
 
@@ -24,6 +30,7 @@ import android.view.MenuItem;
 import android.support.v4.app.NavUtils;
 import android.widget.EditText;
 import android.widget.Button;
+import android.widget.ImageView;
 
 import java.net.Socket;
 import java.util.Scanner;
@@ -41,10 +48,28 @@ public class MainActivity extends ActionBarActivity {
         mButton = (Button)findViewById(R.id.sendDataButton);
 
         mButton.setOnClickListener(
-                new View.OnClickListener()
-                {
-                    public void onClick(View view)
-                    {
+            new View.OnClickListener(){
+                public void onClick(View view){
+                    HttpAccess HttpAccessRunnable = null;
+                    EditText dataBox = (EditText)findViewById(R.id.data);
+                    String data = dataBox.getText().toString();
+                    System.out.println("Data:["+data+"]");
+                    if (data.length() == 0){
+                        HttpAccessRunnable = new HttpAccess(MainActivity.this);
+                    } else {
+                        HttpAccessRunnable = new HttpAccess(data, MainActivity.this);
+                    }
+                    final Thread HTTPThread = new Thread(HttpAccessRunnable);
+                    HTTPThread.start();
+                }
+            }
+        );
+
+
+
+/*        mButton.setOnClickListener(
+                new View.OnClickListener(){
+                    public void onClick(View view){
                         EditText dataBox = (EditText)findViewById(R.id.data);
                         String data = dataBox.getText().toString();
                         EditText hostBox = (EditText)findViewById(R.id.host);
@@ -53,7 +78,8 @@ public class MainActivity extends ActionBarActivity {
                         Thread clientThread = new Thread(clientRunnable);
                         clientThread.start();
                     }
-                });
+                }
+        );   */
 
     }
 
@@ -75,4 +101,6 @@ public class MainActivity extends ActionBarActivity {
         }
         return super.onOptionsItemSelected(item);
     }
+
+
 }

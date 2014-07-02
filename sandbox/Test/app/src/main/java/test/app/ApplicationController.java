@@ -6,7 +6,7 @@ import java.util.HashMap;
  * Created by JMZ on 6/24/2014.
  */
 public class ApplicationController {
-    private static HashMap<String, Handler> hashBrown = new HashMap<String, Handler>();
+    static private HashMap<String, Handler> hashBrown = new HashMap<String, Handler>();
     static{
 
 
