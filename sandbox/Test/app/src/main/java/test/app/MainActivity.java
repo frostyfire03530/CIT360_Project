@@ -2,8 +2,9 @@ package test.app;
 
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
+import android.os.*;
+import android.os.Handler;
 import android.support.v7.app.ActionBarActivity;
-import android.os.Bundle;
 import android.text.Editable;
 import android.view.Menu;
 import android.view.MenuItem;
@@ -11,6 +12,7 @@ import java.io.FileInputStream;
 import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
 import java.io.IOException;
+import java.lang.ref.WeakReference;
 import java.net.HttpURLConnection;
 import java.net.URL;
 import java.util.Date;
@@ -50,14 +52,15 @@ public class MainActivity extends ActionBarActivity {
         mButton.setOnClickListener(
             new View.OnClickListener(){
                 public void onClick(View view){
+                    android.os.Handler aHandler = new Handler();
                     HttpAccess HttpAccessRunnable = null;
                     EditText dataBox = (EditText)findViewById(R.id.data);
                     String data = dataBox.getText().toString();
                     System.out.println("Data:["+data+"]");
                     if (data.length() == 0){
-                        HttpAccessRunnable = new HttpAccess(MainActivity.this);
+                        HttpAccessRunnable = new HttpAccess(new WeakReference<MainActivity>(MainActivity.this), aHandler);
                     } else {
-                        HttpAccessRunnable = new HttpAccess(data, MainActivity.this);
+                        HttpAccessRunnable = new HttpAccess(data, new WeakReference<MainActivity>(MainActivity.this), aHandler);
                     }
                     final Thread HTTPThread = new Thread(HttpAccessRunnable);
                     HTTPThread.start();
